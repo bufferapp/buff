@@ -27,5 +27,7 @@ end
 client = Buffer::Client.new(options['access_token'])
 id = client.profiles[options['profile_index'].to_i].id
 
-response = client.create_update(body: {text: ARGF.chomp, profile_ids: [ id ] } )
-puts response if ENV['BUFF_DEBUG']
+ARGF.each_line do |line|
+  response = client.create_update(body: {text: line.chomp, profile_ids: [ id ] } )
+  puts response if ENV['BUFF_DEBUG']
+end
